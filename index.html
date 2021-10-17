@@ -31,6 +31,12 @@
                   {props.todo.title}
                 </span>
               </label>
+              <span
+                className='cmd'
+                onClick={() => props.deleteTodo(props.todo)}
+              >
+                [x]
+              </span>
             </li>
           );
         }
@@ -38,7 +44,12 @@
         function TodoList(props) {
           const todos = props.todos.map((todo) => {
             return (
-              <TodoItem key={todo.id} todo={todo} checkTodo={props.checkTodo} />
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                checkTodo={props.checkTodo}
+                deleteTodo={props.deleteTodo}
+              />
             );
           });
           return <ul>{todos}</ul>;
@@ -51,7 +62,9 @@
               todos: todos,
             };
             this.checkTodo = this.checkTodo.bind(this);
+            this.deleteTodo = this.deleteTodo.bind(this);
           }
+
           checkTodo(todo) {
             const todos = this.state.todos.map((todo) => {
               return { id: todo.id, title: todo.title, isDone: todo.isDone };
@@ -72,7 +85,11 @@
             return (
               <div className='container'>
                 <h1>My Todos</h1>
-                <TodoList todos={this.state.todos} checkTodo={this.checkTodo} />
+                <TodoList
+                  todos={this.state.todos}
+                  checkTodo={this.checkTodo}
+                  deleteTodo={this.deleteTodo}
+                />
               </div>
             );
           }
