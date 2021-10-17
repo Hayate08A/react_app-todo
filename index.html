@@ -27,9 +27,10 @@
                   checked={props.todo.isDone}
                   onChange={() => props.checkTodo(props.todo)}
                 />
-                {props.todo.title}
+                <span className={props.todo.isDone ? 'done' : ''}>
+                  {props.todo.title}
+                </span>
               </label>
-              {props.todo.title}
             </li>
           );
         }
@@ -50,6 +51,22 @@
               todos: todos,
             };
             this.checkTodo = this.checkTodo.bind(this);
+          }
+          checkTodo(todo) {
+            const todos = this.state.todos.map((todo) => {
+              return { id: todo.id, title: todo.title, isDone: todo.isDone };
+            });
+
+            const pos = this.state.todos
+              .map((todo) => {
+                return todo.id;
+              })
+              .indexOf(todo.id);
+
+            todos[pos].isDone = !todos[pos].isDone;
+            this.setState({
+              todos: todos,
+            });
           }
           render() {
             return (
