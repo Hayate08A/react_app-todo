@@ -23,7 +23,7 @@
   line-height: 1.5;
 }
 
-.container input[type='checkbox'] {
+.container input[type="checkbox"] {
   margin-right: 5px;
 }
 
@@ -34,9 +34,16 @@
   margin-left: 5px;
 }
 
-.container input[type='text'] {
+.container input[type="text"] {
   padding: 2px;
   margin-right: 5px;
+}
+
+h1 > span {
+  color: #ccc;
+  font-size: 12px;
+  font-weight: normal;
+  margin-left: 5px;
 }
 
 .done {
