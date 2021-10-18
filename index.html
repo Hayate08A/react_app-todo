@@ -21,6 +21,7 @@
 
           return (
             <h1>
+              <button onClick={props.parge}>Purge</button>
               My Todos
               <span>
                 ({remaining.length}/{props.todos.length})
@@ -98,6 +99,20 @@
             this.deleteTodo = this.deleteTodo.bind(this);
             this.updateItem = this.updateItem.bind(this);
             this.addTodo = this.addTodo.bind(this);
+            this.parge = this.parge.bind(this);
+          }
+
+          parge() {
+            console.log("aaaaaaaaaaaaa");
+            if (!confirm("are you sure?")) {
+              return;
+            }
+            const todos = this.state.todos.filter((todo) => {
+              return !todo.isDone;
+            });
+            this.setState({
+              todos: todos,
+            });
           }
 
           addTodo(e) {
@@ -155,7 +170,7 @@
           render() {
             return (
               <div className="container">
-                <TodoHeader todos={this.state.todos} />
+                <TodoHeader todos={this.state.todos} parge={this.parge} />
                 <TodoList
                   todos={this.state.todos}
                   checkTodo={this.checkTodo}
