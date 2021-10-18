@@ -13,9 +13,9 @@
     <script type="text/babel">
       (() => {
         const todos = [
-          { id: 0, title: 'Task 0', isDone: false },
-          { id: 1, title: 'Task 1', isDone: false },
-          { id: 2, title: 'Task 2', isDone: true },
+          { id: 0, title: "Task 0", isDone: false },
+          { id: 1, title: "Task 1", isDone: false },
+          { id: 2, title: "Task 2", isDone: true },
         ];
 
         function TodoItem(props) {
@@ -23,16 +23,16 @@
             <li key={props.todo.id}>
               <label>
                 <input
-                  type='checkbox'
+                  type="checkbox"
                   checked={props.todo.isDone}
                   onChange={() => props.checkTodo(props.todo)}
                 />
-                <span className={props.todo.isDone ? 'done' : ''}>
+                <span className={props.todo.isDone ? "done" : ""}>
                   {props.todo.title}
                 </span>
               </label>
               <span
-                className='cmd'
+                className="cmd"
                 onClick={() => props.deleteTodo(props.todo)}
               >
                 [x]
@@ -59,13 +59,13 @@
 
         function TodoForm(props) {
           return (
-            <form>
+            <form onSubmit={props.addTodo}>
               <input
-                type='text'
+                type="text"
                 value={props.item}
                 onChange={props.updateItem}
               />
-              <input type='submit' value='Add' />
+              <input type="submit" value="Add" />
             </form>
           );
         }
@@ -75,15 +75,26 @@
             super();
             this.state = {
               todos: todos,
-              item: '',
+              item: "",
             };
             this.checkTodo = this.checkTodo.bind(this);
             this.deleteTodo = this.deleteTodo.bind(this);
             this.updateItem = this.updateItem.bind(this);
+            this.addTodo = this.addTodo.bind(this);
+          }
+
+          addTodo(e) {
+            e.preventDefault();
+            const item = {};
+            const todos = this.state.todos.slice();
+            todos.push(item);
+            this.setState({
+              todos: todos,
+            });
           }
 
           deleteTodo(todo) {
-            if (!confirm('are you sure?')) {
+            if (!confirm("are you sure?")) {
               return;
             }
             const todos = this.state.todos.slice();
@@ -118,20 +129,24 @@
 
           render() {
             return (
-              <div className='container'>
+              <div className="container">
                 <h1>My Todos</h1>
                 <TodoList
                   todos={this.state.todos}
                   checkTodo={this.checkTodo}
                   deleteTodo={this.deleteTodo}
                 />
-                <TodoForm item={this.state.item} updateItem={this.updateItem} />
+                <TodoForm
+                  item={this.state.item}
+                  updateItem={this.updateItem}
+                  addTodo={this.addTodo}
+                />
               </div>
             );
           }
         }
 
-        ReactDOM.render(<App />, document.getElementById('root'));
+        ReactDOM.render(<App />, document.getElementById("root"));
       })();
     </script>
   </body>
